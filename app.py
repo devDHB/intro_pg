@@ -59,6 +59,12 @@ def member_get():
     all_members = list(db.members.find({}, {"_id": False}))
     return jsonify({"result": all_members})
 
+# 삭제 기능 추가
+@app.route("/delete_member", methods=["POST"])
+def delete_member():
+    delete_name_receive = request.form["delete_name_give"]
+    db.members.delete_one({"name": delete_name_receive})
+
 
 if __name__ == "__main__":
     app.run("0.0.0.0", port=5000, debug=True)
