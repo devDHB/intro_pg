@@ -17,6 +17,11 @@ db = client.dbsparta
 def home():
     return render_template("index.html")
 
+# 루트 추가
+@app.route("/테스트")
+def test():
+    return render_template("test.html")
+
 
 @app.route("/member", methods=["POST"])
 def member_post():

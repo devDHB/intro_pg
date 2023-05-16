@@ -145,10 +145,9 @@
               let mbti = a["mbti"];
               let comment = a["comment"];
               
-
               let temp_html = `<div class="col">
                                   <div class="card h-100">
-                                    <a href="#">
+                                    <a href="${name}">
                                       <img
                                       src="${image}"
                                       class="card-img-top"
@@ -162,9 +161,7 @@
                                       </div>                                      
                                   </div>
                                 </div>`;
-                              
               $("#cards-box").append(temp_html);
-              
             });
           });
       }
