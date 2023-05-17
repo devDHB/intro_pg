@@ -24,10 +24,10 @@ def doohyeon():
     return render_template("doohyeon.html")
 
 
-# 라우트 추가 - 방두현
-# @app.route("/방두현")
-# def doohyeon():
-#     return render_template("doohyeon.html")
+# 라우트 추가 - 장봉준
+@app.route("/장봉준")
+def bongjun():
+    return render_template("bongjun.html")
 
 
 @app.route("/member", methods=["POST"])
@@ -72,6 +72,20 @@ def member_get():
     return jsonify({"result": all_members})
 
 
+# 방두현 데이터 불러오기
+@app.route("/doohyeon", methods=["GET"])
+def doohyeon_get():
+    doohyeon = list(db.members.find({"name": "방두현"}, {"_id": False}))
+    return jsonify({"result": doohyeon})
+
+
+# 장봉준 데이터 불러오기
+@app.route("/bongjun", methods=["GET"])
+def bongjun_get():
+    bongjun = list(db.members.find({"name": "방두현"}, {"_id": False}))
+    return jsonify({"result": bongjun})
+
+
 # 삭제 기능 추가
 @app.route("/delete_member", methods=["POST"])
 def delete_member():
@@ -79,7 +93,7 @@ def delete_member():
     db.members.delete_one({"name": delete_name_receive})
 
 
-# 수정 기능 추가
+# 수정 기능 추가 (아직 실행 안해봄)
 @app.route("/update_intro", methods=["PUT"])
 def update_intro():
     name_receive = request.form["name_give"]

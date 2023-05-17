@@ -107,20 +107,22 @@
         display: none;
         width : 100%;
         height : 100%;
-        position : fixed;
         background : rgba(0,0,0,0.5);
-        z-index : 5;
-        padding: 30px;
+        position : fixed;
+        z-index : 3;
       }
       .form {
         background: white;
         border-radius: 5px;
-        padding: 30px;
+        padding: 40px;
         position: fixed;
         top: 60%;
         left: 40%;
       } 
-
+      /* 모달창 열고닫기 */
+      .show {
+        display: block;
+      }
 
 
     </style>
@@ -137,7 +139,7 @@
             $("#cards-box").empty();
 
             rows.forEach((a) => {
-              // 수정
+              // 데이터 바인딩 
               console.log(a);
               let image = a["url"];
               let name = a["name"];
@@ -167,7 +169,7 @@
       }
 
       function posting() {
-        // 추가
+        // 추가 데이터
         let url = $("#url").val();
         let name = $("#name").val();
         let age = $("#age").val();
@@ -191,7 +193,7 @@
         window.location.reload();
       }
 
-      // 삭제 전송버튼
+      // 삭제 모달창의 전송 버튼
       function delete_btn(){
         let delete_name = $("#delete_name").val();
 
@@ -207,15 +209,14 @@
       }
 
 
-      // 삭제 모달창 열기
-      function delete_member(){
-        $('.delete-modal').show();      
+      // 삭제-모달창 열기
+      function modal_open(){
+        $('.delete-modal').addClass('show');      
       }
-      // 모달창 닫기
-      function close_modal() {
-        $('.delete-modal').hide();
+      // 삭제-모달창 닫기
+      function modal_close(){
+        $('.delete-modal').removeClass('show');      
       }
-
 
       function open_box() {
         $("#post-box").show();
@@ -241,7 +242,7 @@
             />
           </div>
           <button onclick="delete_btn()" type="button" class="btn btn-primary">전송</button>
-          <button onclick="close_modal()" class="btn btn-danger">닫기</button>
+          <button onclick="modal_close()" class="btn btn-danger">닫기</button>
       </div>
     </div> 
       
@@ -401,9 +402,17 @@
           </div>
         </div>
       </div>
-      <!-- 삭제 버튼 추가 -->
-      <button onclick="delete_member()" type="button" class="btn btn-danger" style="width:80px; margin-top:20px">삭제</button>
+      <!-- 삭제 모달창 열기 버튼 추가 -->
+      <button onclick="modal_open()" type="button" class="btn btn-danger" style="width:80px; margin-top:20px">삭제</button>
     </div>
 
+    <script>
+      // 검은 배경화면 클릭시 모달창 닫기
+      document.querySelector('.delete-modal').addEventListener('click', function(e){
+        if (e.target == document.querySelector('.delete-modal')) {
+          document.querySelector('.delete-modal').classList.remove('show');
+        }
+      })
+    </script>
   </body>
 </html>
