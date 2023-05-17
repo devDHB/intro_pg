@@ -17,10 +17,17 @@ db = client.dbsparta
 def home():
     return render_template("index.html")
 
-# 루트 추가
-@app.route("/테스트")
-def test():
-    return render_template("test.html")
+
+# 라우트 추가 - 방두현
+@app.route("/방두현")
+def doohyeon():
+    return render_template("doohyeon.html")
+
+
+# 라우트 추가 - 방두현
+# @app.route("/방두현")
+# def doohyeon():
+#     return render_template("doohyeon.html")
 
 
 @app.route("/member", methods=["POST"])
@@ -47,12 +54,12 @@ def member_post():
         # "title": ogtitle,
         # "desc": ogdesc,
         # "image": ogimage,
-        "url" : url_receive,
+        "url": url_receive,
         "name": name_receive,
-        "age":age_receive,
-        "mbti":mbti_receive,
+        "age": age_receive,
+        "mbti": mbti_receive,
         "comment": comment_receive,
-        "intro" : intro_receive,
+        "intro": intro_receive,
     }
     db.members.insert_one(doc)
 
@@ -64,11 +71,22 @@ def member_get():
     all_members = list(db.members.find({}, {"_id": False}))
     return jsonify({"result": all_members})
 
+
 # 삭제 기능 추가
 @app.route("/delete_member", methods=["POST"])
 def delete_member():
     delete_name_receive = request.form["delete_name_give"]
     db.members.delete_one({"name": delete_name_receive})
+
+
+# 수정 기능 추가
+@app.route("/update_intro", methods=["PUT"])
+def update_intro():
+    name_receive = request.form["name_give"]
+    update_intro_receive = request.form["update_intro_give"]
+    db.members.update_one(
+        {"name": name_receive}, {"$set": {"intro": update_intro_receive}}
+    )
 
 
 if __name__ == "__main__":
